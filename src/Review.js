@@ -3,24 +3,38 @@ import people from "./data";
 import { FaChevronLeft, FaChevronRight, FaQuoteRight } from "react-icons/fa";
 
 const Review = ({ mydata }) => {
-  const [person, setPerson] = useState(people)
-  const random = Math.random * mydata.length;
-  // const { id, name, job, image, text } = mydata;
-  console.log(mydata);
-  console.log(people);
+const [personIndex, setPersonIndex] = useState(0)  
+  const { id, name, job, image, text } = people[personIndex];
+
+  const checkNumber = (number) =>{
+    if(number > people.length -1){
+      return 0;
+    }
+    if(number < 0){
+      return people.length - 1
+    }
+    return number;
+  };
+
+
+
+
+
+  const randomPerson = ()=>{
+    let randomNumber = Math.floor(Math.random * people.length ) ;
+    if (randomPerson === person){
+      randomNumber = personIndex + 1
+    }
+    console.log(randomNumber);
+  }
 
   return (
-    <div>
-      {mydata.filter((item) => {random == item.id 
-               const { id, name, job, image, text } = item;
-        return(<div>
-   
-            <img src={text} alt="" />
-        </div>) 
-      })}
-
-      <h2>review component</h2>
+   <article>
+    <div className="img-container">
+      <img src={image} alt="" />
+      
     </div>
+   </article>
   );
 };
 
