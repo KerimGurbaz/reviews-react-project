@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import people from "./data";
 import { FaChevronLeft, FaChevronRight, FaQuoteRight } from "react-icons/fa";
 
-const Review = ({ mydata }) => {
+const Review = () => {
 const [personIndex, setPersonIndex] = useState(0)  
-  const { id, name, job, image, text } = people[personIndex];
+  const { name, job, image, text } = people[personIndex];
 
   const checkNumber = (number) =>{
     if(number > people.length -1){
@@ -16,24 +16,50 @@ const [personIndex, setPersonIndex] = useState(0)
     return number;
   };
 
+  const nextPerson = ()=>{
+    setPersonIndex((personIndex)=>{
+      let newIndex = personIndex + 1
+      return checkNumber(newIndex)
 
+    })
+  }
 
+  const prevPerson = ()=>{
+    setPersonIndex((personIndex)=>{
+      let newIndex = personIndex - 1
+      return checkNumber(newIndex)
+    })
+  }
 
 
   const randomPerson = ()=>{
-    let randomNumber = Math.floor(Math.random * people.length ) ;
-    if (randomPerson === person){
+    let randomNumber = Math.floor(Math.random() * people.length ) ;
+    if (randomNumber === personIndex){
       randomNumber = personIndex + 1
     }
-    console.log(randomNumber);
+   setPersonIndex(checkNumber(randomNumber))
   }
 
   return (
-   <article>
+   <article className="review">
     <div className="img-container">
-      <img src={image} alt="" />
-      
+      <img src={image} alt={name} className='person-img' />
+      <span className="quote-icon">
+        <FaQuoteRight/>
+      </span>    
     </div>
+    <h4 className="author">{name}</h4>
+    <p className="job">{job}</p>
+    <p className="info">{text}</p>
+    <div className="button-container">
+      <button className="prev-btn" onClick={prevPerson}>
+        <FaChevronLeft/>
+      </button>
+      <button className="next-btn" onClick={nextPerson}>
+        <FaChevronRight/>
+      </button>
+    </div>
+      <button className="random-btn" onClick={randomPerson}>Suprise Me</button>
    </article>
   );
 };
